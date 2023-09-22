@@ -1,0 +1,13 @@
+function G = GrmMat(A, B, t)
+	syms tau;
+
+    g = simplify( ...
+        rewrite( ...
+        expm(A * tau), ...
+        "sincos") ...
+        );
+	g = g * B;
+	g = g * transpose(g);
+	
+	G = expand(simplifyFraction(int(g, tau, 0, t)));
+end
